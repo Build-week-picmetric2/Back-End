@@ -1,11 +1,10 @@
-const { PORT } = require('./env')
-const app = require('express')()
-const json = require('express').json()
-const morgan = require('morgan')('dev')
-const helmet = require('helmet')()
-const cors = require('cors')()
-
-const apiRouter = require('./routes/api')
+const { PORT } = require('./env'),
+  app = require('express')(),
+  json = require('express').json(),
+  morgan = require('morgan')('dev'),
+  helmet = require('helmet')(),
+  cors = require('cors')(),
+  apiRouter = require('./routes/api')
 
 app.listen(PORT || 5000, () => {
   console.log(`Listening on port ${PORT}...`)

@@ -1,5 +1,5 @@
-const router = require('express-promise-router')()
-const db = require('./model')
+const router = require('express-promise-router')(),
+  db = require('./model')
 
 module.exports = router
 
