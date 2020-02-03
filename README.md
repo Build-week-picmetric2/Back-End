@@ -1,35 +1,55 @@
 # Tempory endpoints during development
 
-https://picmetric-demo.herokuapp.com/api/register
-POST request
+## https://picmetric-demo.herokuapp.com/api/register
+
+### POST request
+
+```
 {
 email: 'emailHere',
 username: 'usernameHere',
 password: 'passwordHere',
 }
+```
 
-https://picmetric-demo.herokuapp.com/api/login
-POST request
+## https://picmetric-demo.herokuapp.com/api/login
+
+### POST request
+
+```
 {
 username: 'usernameHere',
 password: 'passwordHere'
 }
+```
 
-https://picmetric-demo.herokuapp.com/api/logout
-GET request
+## https://picmetric-demo.herokuapp.com/api/logout
 
-https://picmetric-demo.herokuapp.com/api/photos
-GET request
+### GET request
+
+## https://picmetric-demo.herokuapp.com/api/photos
+
+### GET request
+
+```
 headers: {
 Authorization: token,
 }
+```
 
-https://picmetric-demo.herokuapp.com/api/photos
-POST request
+## https://picmetric-demo.herokuapp.com/api/photos
+
+### POST request
+
+```
 headers: {
 Authorization: token,
 }
-// Example of how to structure the image upload using fetch  
+```
+
+```
+// Example of how to structure the image upload using fetch
+
 const formdata = new FormData();
 formdata.append("image", fileInput.files[0], "workplace-1245776_1920.jpg");
 
@@ -44,9 +64,13 @@ fetch("https://picmetric-demo.herokuapp.com/api/photos", requestOptions)
 .then(response => response.text())
 .then(result => console.log(result))
 .catch(error => console.log('error', error));
+```
 
-https://picmetric-demo.herokuapp.com/api/photos/:id
-PUT request
+## https://picmetric-demo.herokuapp.com/api/photos/:id
+
+### PUT request
+
+```
 headers: {
 Authorization: token,
 }
@@ -55,9 +79,14 @@ Authorization: token,
 name: 'optional',
 category: 'optional'
 }
+```
 
-https://picmetric-demo.herokuapp.com/api/photos/:id
-DELETE request
+## https://picmetric-demo.herokuapp.com/api/photos/:id
+
+### DELETE request
+
+```
 headers: {
 Authorization: token,
 }
+```
