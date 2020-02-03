@@ -1,11 +1,12 @@
-const router = require('express-promise-router')(),
-  db = require('./model')
+const router = require('express-promise-router')()
 
 module.exports = router
 
-router.get('/', async (req, res) => {
-  const temp = await db.temp()
-  res.json(temp)
+router.get('/', (req, res) => {
+  res.json({
+    message: `You have been logged out!`,
+    token: false,
+  })
 })
 
 router.use((err, req, res, next) =>

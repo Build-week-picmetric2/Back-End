@@ -1,11 +1,15 @@
 const router = require('express-promise-router')(),
-  db = require('./model')
+  { valBody, validatePassword } = require('./middleware'),
+  { generateToken } = require('../authTools')
 
 module.exports = router
 
-router.get('/', async (req, res) => {
-  const temp = await db.temp()
-  res.json(temp)
+router.post('/', valBody, validatePassword, (req, res) => {
+  const token = generateToken(req.body.user)
+  res.json({
+    message: `${req.body.user.username} logged in!`,
+    token,
+  })
 })
 
 router.use((err, req, res, next) =>
