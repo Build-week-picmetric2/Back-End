@@ -1,15 +1,16 @@
 const router = require('express-promise-router')(),
   { AWS_ACESS_KEY_ID, AWS_SECRET_ACESS_KEY } = require('../../../env'),
   { addImage, getImageArray, updateImage, deleteImage } = require('./model'),
-  aws = require('aws-sdk'),
-  s3 = new aws.S3({
+  { checkUserAccess } = require('./middleware')
+;(aws = require('aws-sdk')),
+  (s3 = new aws.S3({
     accessKeyId: AWS_ACESS_KEY_ID,
     secretAccessKey: AWS_SECRET_ACESS_KEY,
     region: 'us-west-2',
-  }),
-  multer = require('multer'),
-  multerS3 = require('multer-s3'),
-  upload = multer({
+  })),
+  (multer = require('multer')),
+  (multerS3 = require('multer-s3')),
+  (upload = multer({
     storage: multerS3({
       s3,
       bucket: 'michelangelostestbucket',
@@ -19,8 +20,8 @@ const router = require('express-promise-router')(),
           originalName: req.headers.name || file.originalname,
         }),
     }),
-  }),
-  imageUpload = upload.single('image')
+  })),
+  (imageUpload = upload.single('image'))
 
 // router starts here
 
@@ -54,11 +55,11 @@ router.get('/', async (req, res) =>
   res.json(await getImageArray(req.decodedToken.subject))
 )
 
-router.put('/:id', async (req, res) =>
+router.put('/:id', checkUserAccess, async (req, res) =>
   res.json(await updateImage(req.params.id, req.body))
 )
 
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', checkUserAccess, async (req, res) => {
   const deletedImage = await deleteImage(req.params.id)
   if (deletedImage) {
     res.json({ message: 'Image deleted successfully!' })
