@@ -1,4 +1,4 @@
-# This branch is not yet deployed: Please see readme for demoBranch for current enpoints.
+# This branch is not yet deployed: Please see readme for demoBranch for current endpoints.
 
 Todo List:
 
@@ -6,7 +6,7 @@ Add support for deleting AWS S3 Objects from DELETE endpoint. (Currently only de
 
 Add tests for all endpoints
 
-Write Axios requests to connect to DS enpoints
+Write Axios requests to connect to DS endpoints
 
 Possible Todo:
 
