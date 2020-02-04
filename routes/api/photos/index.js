@@ -13,7 +13,7 @@ const router = require('express-promise-router')(),
   (upload = multer({
     storage: multerS3({
       s3,
-      bucket: 'michelangelostestbucket',
+      bucket: 'picmetric2-v1',
       acl: 'public-read',
       metadata: (req, file, cb) =>
         cb(null, {
@@ -62,6 +62,13 @@ router.put('/:id', checkUserAccess, async (req, res) =>
 router.delete('/:id', checkUserAccess, async (req, res) => {
   const deletedImage = await deleteImage(req.params.id)
   if (deletedImage) {
+    s3.deleteObject(
+      { Bucket: 'picmetric2-v1', Key: req.body.key },
+      (err, data) => {
+        if (err) console.log(err, err.stack)
+        else console.log('sucess')
+      }
+    )
     res.json({ message: 'Image deleted successfully!' })
   } else {
     res.json({ message: 'No image with that id!' })

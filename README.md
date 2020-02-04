@@ -2,8 +2,6 @@
 
 Todo List:
 
-Add support for deleting AWS S3 Objects from DELETE endpoint. (Currently only deletes record.)
-
 Add tests for all endpoints
 
 Write Axios requests to connect to DS endpoints
