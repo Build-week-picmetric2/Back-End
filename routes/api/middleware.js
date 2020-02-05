@@ -3,16 +3,18 @@ const jwt = require('jsonwebtoken'),
 
 const authenticate = async (req, res, next) => {
   const token = req.headers.authorization
-  if (!token) {
-    res.status(401).json({ message: 'You shall not pass!', token: false })
-  }
+  if (!req.headers.authorization)
+    return res
+      .status(401)
+      .json({ message: 'You shall not pass!', token: false })
   jwt.verify(token, JWT_SECRET, (err, decodedToken) => {
-    if (err) {
-      res.status(401).json({ message: 'You shall not pass!', token: false })
-    }
+    if (err)
+      return res
+        .status(401)
+        .json({ message: 'You shall not pass!', token: false })
     req.decodedToken = decodedToken
+    next()
   })
-  next()
 }
 
 module.exports = { authenticate }

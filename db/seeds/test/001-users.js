@@ -15,5 +15,11 @@ exports.seed = knex =>
           password:
             '$2a$14$3zoGnAEVVcVTz20glapt9eI2Y/WNLkbqM4H.F4xL2DI24xdT29Fs2',
         },
+        {
+          email: 'atest@email.com',
+          username: 'atestuser',
+          password:
+            '$2a$14$MCgj7X96pcsiUpQKqsBbnOCCRnMZopG6QDcU46TCbmnWe0IoMjPbS',
+        },
       ])
     )

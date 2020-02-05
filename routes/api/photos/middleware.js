@@ -7,9 +7,7 @@ const checkUserAccess = async (req, res, next) => {
       photo_id: req.params.id,
     })
   )[0]
-  if (!searchResult) {
-    throw new Error('No photo with that ID!')
-  }
+  if (!searchResult) throw new Error('No photo with that ID!')
   req.body.key = searchResult.key
   next()
 }

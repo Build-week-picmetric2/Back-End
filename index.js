@@ -1,4 +1,4 @@
-const { PORT } = require('./env'),
+const { PORT, NODE_ENV } = require('./env'),
   app = require('express')(),
   json = require('express').json(),
   morgan = require('morgan')('dev'),
@@ -6,9 +6,11 @@ const { PORT } = require('./env'),
   cors = require('cors')(),
   apiRouter = require('./routes/api')
 
-app.listen(PORT || 5000, () => {
-  console.log(`Listening on port ${PORT}...`)
-})
+NODE_ENV === 'test'
+  ? (module.exports = app)
+  : app.listen(PORT || 5000, () => {
+      console.log(`Listening on port ${PORT}...`)
+    })
 
 app.use(json, morgan, helmet, cors)
 

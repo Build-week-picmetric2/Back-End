@@ -8,4 +8,6 @@ module.exports = {
   JWT_SECRET: process.env.JWT_SECRET,
   AWS_ACESS_KEY_ID: process.env.AWS_ACESS_KEY_ID,
   AWS_SECRET_ACESS_KEY: process.env.AWS_SECRET_ACESS_KEY,
+  TEST_USERNAME: process.env.TEST_USERNAME,
+  TEST_PASSWORD: process.env.TEST_PASSWORD,
 }

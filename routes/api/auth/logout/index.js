@@ -10,5 +10,9 @@ router.get('/', (req, res) => {
 })
 
 router.use((err, req, res, next) =>
-  res.status(500).json({ message: 'Uh Oh! 500 Error!', error: err.message })
+  res.status(500).json({
+    message: 'Uh Oh! 500 Error!',
+    error: err.message.replace(/\\/g, ''),
+    token: false,
+  })
 )

@@ -2,13 +2,9 @@
 
 Todo List:
 
-Add tests for all endpoints
-
 Write Axios requests to connect to DS endpoints
 
-Possible Todo:
-
-Add more data tables, fields and the ability to filter data sent to client using querys as DS provides more functionality.
+Happy Path fully tested E2E, should add more error tests for completeness.
 
 // Optional perfomance optimization based on industry best practices. //
 
