@@ -8,11 +8,11 @@ describe('/login', () => {
     test('returns a status of 201, a message, and a token', async () => {
       const res = await request(server)
         .post('/api/login')
-        .send({ username: 'atestuser', password: 'atestpassword' })
+        .send({ username: 'blahblah', password: 'blahblah' })
 
       expect(res.status).toBe(200)
 
-      expect(JSON.parse(res.text).message).toBe('atestuser logged in!')
+      expect(JSON.parse(res.text).message).toBe('blahblah logged in!')
 
       expect(JSON.parse(res.text).token).toBeTruthy()
     })

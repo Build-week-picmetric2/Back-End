@@ -7,17 +7,21 @@ describe('photosRouter', () => {
   let token
   let imgId
   beforeAll(async done => {
-    await db.seed.run()
-    request(server)
-      .post('/api/login')
-      .send({
-        username: TEST_USERNAME,
-        password: TEST_PASSWORD,
-      })
-      .end((err, res) => {
-        token = res.body.token
-        done()
-      })
+    try {
+      await db.seed.run()
+      request(server)
+        .post('/api/login')
+        .send({
+          username: TEST_USERNAME,
+          password: TEST_PASSWORD,
+        })
+        .end((err, res) => {
+          token = res.body.token
+          done()
+        })
+    } catch (error) {
+      console.log(error)
+    }
   })
 
   describe('/ POST', () => {
@@ -28,18 +32,11 @@ describe('photosRouter', () => {
         .set('Content-Type', 'application/x-www-form-urlencoded')
         .attach('image', __dirname + '/testImg/forest-931706_1920.jpg')
 
-      imgId = (
-        await db('photos')
-          .where('key', JSON.parse(res.text).key)
-          .first()
-      ).photo_id
+      imgId = (await db('images').where('name', 'forest-931706_1920.jpg'))[1]
+        .image_id
 
       expect(res.status).toBe(201)
-      expect(JSON.parse(res.text).imageURL).toBeTruthy()
-      expect(JSON.parse(res.text).metadata.originalName).toBe(
-        'forest-931706_1920.jpg'
-      )
-      expect(JSON.parse(res.text).key).toBeTruthy()
+      expect(imgId).toBe(13)
     })
   })
 
