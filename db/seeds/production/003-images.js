@@ -55,7 +55,7 @@ exports.seed = knex =>
           name: 'pier-569314_1920.jpg',
           description: null,
           user_id: 2,
-          category_id: null,
+          category_id: 1,
         },
         {
           url:
