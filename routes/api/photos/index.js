@@ -17,7 +17,7 @@ const router = require('express-promise-router')(),
       acl: 'public-read',
       metadata: (req, file, cb) =>
         cb(null, {
-          originalName: req.headers.name || file.originalname,
+          originalName: file.originalname,
         }),
     }),
   }),
@@ -40,12 +40,9 @@ router.post('/', (req, res) => {
         throw new Error(err)
       })
       return res.status(201).json({
-        imageURL: req.file.location,
-        metadata: req.file.metadata,
-        key: req.file.key,
+        message: `${req.file.metadata.originalName} saved successfully!`,
       })
-    }
-    return res.status(401).json({ message: 'You forgot to send an image!' })
+    } else throw new Error('You forgot to send an image!')
   })
 })
 

@@ -1,6 +1,6 @@
 exports.up = knex =>
-  knex.schema.createTable('photos', table => {
-    table.increments('photo_id')
+  knex.schema.createTable('images', table => {
+    table.increments('image_id')
     table
       .text('url')
       .unique()
@@ -14,6 +14,7 @@ exports.up = knex =>
       .text('name')
       .notNullable()
       .index()
+    table.text('description')
     table
       .integer('user_id')
       .notNullable()
@@ -21,13 +22,9 @@ exports.up = knex =>
       .unsigned()
       .onDelete('CASCADE')
     table
-      .integer('people_bool_id')
-      .references('people_bools.people_bool_id')
-      .unsigned()
-    table
       .integer('category_id')
       .references('categories.category_id')
       .unsigned()
   })
 
-exports.down = knex => knex.schema.dropTableIfExists('photos')
+exports.down = knex => knex.schema.dropTableIfExists('images')
