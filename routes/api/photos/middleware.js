@@ -12,4 +12,13 @@ const checkUserAccess = async (req, res, next) => {
   next()
 }
 
-module.exports = { checkUserAccess }
+const checkPutBody = async (req, res, next) => {
+  if (!req.body.name && !req.body.description && !req.body.category) {
+    throw new Error(
+      'Must send any combination of name, description, or category'
+    )
+  }
+  next()
+}
+
+module.exports = { checkUserAccess, checkPutBody }

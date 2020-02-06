@@ -7,7 +7,7 @@ const router = require('express-promise-router')(),
     deleteImage,
     getImagePredictions,
   } = require('./model'),
-  { checkUserAccess } = require('./middleware'),
+  { checkUserAccess, checkPutBody } = require('./middleware'),
   aws = require('aws-sdk'),
   s3 = new aws.S3({
     accessKeyId: AWS_ACESS_KEY_ID,
@@ -57,11 +57,11 @@ router.get('/', async (req, res) => {
   res.json(await getImageArray(req.decodedToken.subject))
 })
 
-router.get('/:id', async (req, res) => {
+router.get('/:id', checkUserAccess, async (req, res) => {
   res.json(await getImagePredictions(req.params.id))
 })
 
-router.put('/:id', checkUserAccess, async (req, res) =>
+router.put('/:id', checkUserAccess, checkPutBody, async (req, res) =>
   res.json(await updateImage(req.params.id, req.body))
 )
 

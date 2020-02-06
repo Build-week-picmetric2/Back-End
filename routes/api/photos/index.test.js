@@ -47,19 +47,52 @@ describe('photosRouter', () => {
         .set('authorization', token)
 
       expect(res.status).toBe(200)
-      expect(JSON.parse(res.text).length).toBe(5)
+      expect(JSON.parse(res.text).length).toBe(6)
     })
   })
 
   describe('/:id PUT', () => {
-    test('Change image name and category', async () => {
+    test('Change image name, category and description', async () => {
       const res = await request(server)
         .put('/api/photos/4')
         .set('authorization', token)
-        .send({ category: 'radical', name: 'Milky Way' })
+        .send({
+          category: 'radical',
+          name: 'Milky Way',
+          description: 'testing123',
+        })
 
       expect(res.status).toBe(200)
       expect(JSON.parse(res.text).name).toBe('Milky Way')
+      expect(JSON.parse(res.text).description).toBe('testing123')
+    })
+
+    test('Change image name', async () => {
+      const res = await request(server)
+        .put('/api/photos/4')
+        .set('authorization', token)
+        .send({
+          name: 'Milky Way Galaxy',
+        })
+
+      expect(res.status).toBe(200)
+      expect(JSON.parse(res.text)).toMatchObject({
+        category_id: 4,
+        description: 'testing123',
+        name: 'Milky Way Galaxy',
+      })
+    })
+
+    test('send with empty body', async () => {
+      const res = await request(server)
+        .put('/api/photos/4')
+        .set('authorization', token)
+
+      expect(res.status).toBe(500)
+      expect(JSON.parse(res.text)).toMatchObject({
+        error: 'Must send any combination of name, description, or category',
+        message: 'Uh Oh! 500 Error!',
+      })
     })
   })
 

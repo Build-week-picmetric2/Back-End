@@ -37,31 +37,26 @@ const updateImage = async (image_id, photo_data) => {
     .first()
     .catch(e => false)
 
-  if (category && photo_data.name)
+  if (category)
     return (
       await db('images')
         .where('image_id', image_id)
-        .update({ category_id: category.category_id, name: photo_data.name }, [
-          'name',
-          'url',
-        ])
+        .update(
+          {
+            category_id: category.category_id,
+            name: photo_data.name,
+            description: photo_data.description,
+          },
+          ['name', 'description', 'category_id']
+        )
     )[0]
 
-  if (category && !photo_data.name)
+  if (!category)
     return (
       await db('images')
         .where('image_id', image_id)
-        .update({ category_id: category.category_id }, ['name', 'url'])
+        .update({ ...photo_data }, ['name', 'description', 'category_id'])
     )[0]
-
-  if (!category && photo_data.name)
-    return (
-      await db('images')
-        .where('image_id', image_id)
-        .update({ name: photo_data.name }, ['name', 'url'])
-    )[0]
-
-  throw new Error('Must send a name, category or both')
 }
 
 const deleteImage = async image_id =>
