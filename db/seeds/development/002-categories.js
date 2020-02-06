@@ -4,6 +4,9 @@ exports.seed = knex =>
     .then(() =>
       knex('categories').insert([
         {
+          category: '',
+        },
+        {
           category: 'middleware',
         },
         {

@@ -1,6 +1,12 @@
 const router = require('express-promise-router')(),
   { AWS_ACESS_KEY_ID, AWS_SECRET_ACESS_KEY } = require('../../../env'),
-  { addImage, getImageArray, updateImage, deleteImage } = require('./model'),
+  {
+    addImage,
+    getImageArray,
+    updateImage,
+    deleteImage,
+    getImagePredictions,
+  } = require('./model'),
   { checkUserAccess } = require('./middleware'),
   aws = require('aws-sdk'),
   s3 = new aws.S3({
@@ -36,6 +42,7 @@ router.post('/', (req, res) => {
         name: req.file.metadata.originalName,
         key: req.file.key,
         user_id: req.decodedToken.subject,
+        category_id: 1,
       }).catch(err => {
         throw new Error(err)
       })
@@ -46,9 +53,13 @@ router.post('/', (req, res) => {
   })
 })
 
-router.get('/', async (req, res) =>
+router.get('/', async (req, res) => {
   res.json(await getImageArray(req.decodedToken.subject))
-)
+})
+
+router.get('/:id', async (req, res) => {
+  res.json(await getImagePredictions(req.params.id))
+})
 
 router.put('/:id', checkUserAccess, async (req, res) =>
   res.json(await updateImage(req.params.id, req.body))

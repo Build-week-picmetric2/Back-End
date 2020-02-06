@@ -24,6 +24,8 @@ exports.up = knex =>
     table
       .integer('category_id')
       .references('categories.category_id')
+      .defaultTo(1)
+      .notNullable()
       .unsigned()
   })
 
