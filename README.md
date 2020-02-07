@@ -1,4 +1,4 @@
-# Tempory endpoints during development
+# Endpoint Documentation
 
 ## https://picmetric-demo.herokuapp.com/api/register
 
