@@ -3,16 +3,7 @@ const { PORT, NODE_ENV } = require('./env'),
   json = require('express').json(),
   morgan = require('morgan')('dev'),
   helmet = require('helmet')(),
-  cors = require('cors')({
-    origin: [
-      'http:localhost:3002',
-      'http:localhost:3000',
-      'http:localhost',
-      'http:localhost:3001',
-      'http:localhost:3003',
-      'https://picmetricanalyzer.now.sh/',
-    ],
-  }),
+  cors = require('cors')(),
   apiRouter = require('./routes/api')
 
 NODE_ENV === 'test'
