@@ -1,4 +1,4 @@
-# Tempory endpoints during development
+# This branch is deployed, but has been depreciated. Please use active-devolopment branch instead.
 
 ## https://picmetric-demo.herokuapp.com/api/register
 
