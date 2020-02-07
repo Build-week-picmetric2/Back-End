@@ -48,24 +48,11 @@ router.post('/', (req, res) => {
       }).catch(err => {
         throw new Error(err)
       })
-
-      // const { image_id, url } = findByKey()
-      //   .then(res => res)
-      //   .catch(err => {
-      //     throw new Error(err)
-      //   })
-
-      // const ds = axios
-      //   .get('https://pic-alyzer.herokuapp.com/summary', {
-      //     image_id,
-      //     image_url: url,
-      //   })
-      //   .then(res => res)
-      //   .catch(err => {
-      //     throw new Error(err)
-      //   })
-      // console.log(ds)
-
+      const { image_id, url } = findByKey()
+        .then(res => res)
+        .catch(err => {
+          throw new Error(err)
+        })
       return res.status(201).json({
         message: `${req.file.metadata.originalName} saved successfully!`,
       })
@@ -104,3 +91,48 @@ router.use((err, req, res, next) =>
     error: err.message.replace(/\\/g, ''),
   })
 )
+
+const example1 = {
+  results: [
+    {
+      image_id: 2,
+      result: {
+        image_id: 3,
+        image_url_marked_up: 'https://www.dummys3url.com',
+        results: [
+          {
+            average_certainty: 82.56,
+            count: 1,
+            prediction: 'dog',
+          },
+          {
+            average_certainty: 76.22,
+            count: 3,
+            prediction: 'zebra',
+          },
+        ],
+      },
+    },
+  ],
+}
+
+const example = {
+  results: [
+    {
+      image_id: 3,
+      image_url_marked_up: 'https://www.dummys3url.com',
+      results: [
+        {
+          average_certainty: 82.56,
+          count: 1,
+          prediction: 'dog',
+        },
+        {
+          average_certainty: 76.22,
+          count: 3,
+          prediction: 'zebra',
+        },
+      ],
+    },
+  ],
+}
