@@ -1,4 +1,5 @@
 const router = require('express-promise-router')(),
+  axios = require('axios'),
   { AWS_ACESS_KEY_ID, AWS_SECRET_ACESS_KEY } = require('../../../env'),
   {
     addImage,
@@ -6,6 +7,7 @@ const router = require('express-promise-router')(),
     updateImage,
     deleteImage,
     getImagePredictions,
+    findByKey,
   } = require('./model'),
   { checkUserAccess, checkPutBody } = require('./middleware'),
   aws = require('aws-sdk'),
@@ -46,6 +48,24 @@ router.post('/', (req, res) => {
       }).catch(err => {
         throw new Error(err)
       })
+
+      // const { image_id, url } = findByKey()
+      //   .then(res => res)
+      //   .catch(err => {
+      //     throw new Error(err)
+      //   })
+
+      // const ds = axios
+      //   .get('https://pic-alyzer.herokuapp.com/summary', {
+      //     image_id,
+      //     image_url: url,
+      //   })
+      //   .then(res => res)
+      //   .catch(err => {
+      //     throw new Error(err)
+      //   })
+      // console.log(ds)
+
       return res.status(201).json({
         message: `${req.file.metadata.originalName} saved successfully!`,
       })

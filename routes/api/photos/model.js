@@ -64,10 +64,16 @@ const deleteImage = async image_id =>
     .where('image_id', image_id)
     .del()
 
+const findByKey = async key =>
+  await db('images')
+    .where('key', key)
+    .first()
+
 module.exports = {
   addImage,
   getImageArray,
   updateImage,
   deleteImage,
   getImagePredictions,
+  findByKey,
 }
